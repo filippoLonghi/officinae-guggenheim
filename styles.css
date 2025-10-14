@@ -1,0 +1,270 @@
+/* ========================================================
+   Stili generali
+   ======================================================== */
+:root{
+  --bg: #0c0d10;
+  --text: #0f1115;
+  --muted: #4b5563;
+  --brand: #0ea5e9;            /* azzurro acceso */
+  --brand-2: #22d3ee;          /* ciano */
+  --paper: #ffffff;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.25);
+  --footer-h: 110px;
+  --maxw: 1120px;
+  --header-h: 72px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+html { scroll-behavior: smooth; }
+body{
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: var(--text);
+  background: #f6f7fb;
+  padding-bottom: var(--footer-h); /* evita che il footer fisso copra i contenuti */
+}
+
+/* ========================================================
+   Header sticky con sfondo traslucido
+   ======================================================== */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.header-inner{
+  width: 100%;
+  max-width: var(--maxw);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+}
+.logo{
+  font-weight: 800;
+  letter-spacing: .2px;
+  text-decoration: none;
+  background: linear-gradient(90deg,var(--brand),var(--brand-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+}
+.logo span{
+  font-weight: 600;
+  color: #334155;
+  background: none;
+  -webkit-background-clip: initial;
+}
+.nav{
+  margin-left: auto;
+  display: flex;
+  gap: 18px;
+}
+.nav a{
+  text-decoration: none;
+  color: #1f2937;
+  padding: 10px 12px;
+  border-radius: 10px;
+  position: relative;
+}
+.nav a:hover{
+  color: #0b556e;
+}
+.nav a::after{
+  content:"";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
+  height: 2px;
+  background: linear-gradient(90deg,var(--brand),var(--brand-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+  border-radius: 2px;
+}
+.nav a:hover::after{ transform: scaleX(1); }
+
+/* ========================================================
+   Sezione HERO con 3 sfondi (sostituisci le immagini sotto)
+   ======================================================== */
+/* HERO: una sola immagine di sfondo */
+.hero{
+  min-height: calc(100svh - var(--header-h));
+  position: relative;
+  display: grid;
+  align-items: center;
+  isolation: isolate;
+  overflow: hidden;
+
+  /* 1 immagine + 3 livelli decorativi */
+  background-image: var(--hero-bg),
+                    radial-gradient(1200px 600px at 10% 10%, rgba(34,211,238,.15), transparent 60%),
+                    radial-gradient(800px 400px at 85% 20%, rgba(14,165,233,.18), transparent 60%),
+                    linear-gradient(#f6f7fb,#eef1f7);
+  background-size: cover, auto, auto, auto;
+  background-position: center, 0 0, 0 0, 0 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed, scroll, scroll, scroll; /* leggero effetto parallax */
+}
+
+.hero::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(255,255,255,.65) 0%, rgba(255,255,255,.2) 30%, rgba(255,255,255,.85) 100%);
+  z-index:-1;
+}
+.hero .container{
+  width: 100%;
+  max-width: var(--maxw);
+  padding: 60px 20px;
+  margin: 0 auto;
+}
+.kicker{
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #0ea5e9;
+  font-size: 12px;
+}
+h1{
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.04;
+  margin: 8px 0 16px;
+  color: #0b1320;
+}
+.hero p{
+  max-width: 58ch;
+  color: #3b4453;
+  font-size: clamp(16px, 1.7vw, 18px);
+}
+.cta-wrap{ display:flex; gap:16px; margin-top: 28px; }
+.btn{
+  --_bg: linear-gradient(90deg,var(--brand),var(--brand-2));
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--_bg);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+.btn.secondary{
+  --_bg: #fff;
+  color: #0b556e;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  border: 1px solid rgba(14,165,233,.25);
+}
+
+/* ========================================================
+   Sezione features (sotto all'hero)
+   ======================================================== */
+.features{
+  max-width: var(--maxw);
+  margin: 40px auto 80px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+}
+.feature{
+  background: white;
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.08);
+  border: 1px solid rgba(0,0,0,.06);
+}
+.feature h3{ margin: 8px 0 10px; }
+.feature p{ margin: 0; color: #4b5563; }
+.feature svg{ width: 28px; height: 28px; }
+
+/* ========================================================
+   Footer fisso e trasparente
+   ======================================================== */
+.site-footer{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: var(--footer-h);
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.75);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0,0,0,.06);
+}
+.footer-inner{
+  width: 100%;
+  max-width: var(--maxw);
+  padding: 12px 20px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+}
+.footer-card{
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.7);
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  border: 1px solid rgba(0,0,0,.05);
+}
+.footer-card .t{ font-weight: 700; }
+.footer-card .s{ color: #64748b; font-size: 14px; }
+.footer-icon{ width: 36px; height: 36px; display:grid; place-items:center;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(14,165,233,.15), rgba(34,211,238,.15));
+  border: 1px solid rgba(14,165,233,.25);
+}
+
+/* ========================================================
+   Pagine interne (Chi siamo / Vantaggi / Contatti)
+   ======================================================== */
+.page{
+  padding: 56px 20px 120px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.page h1{ margin: 10px 0 6px; }
+.page .lead{ color:#4b5563; max-width: 70ch; }
+.card{
+  background: white;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  margin-top: 18px;
+}
+.grid-2{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3{ display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+
+/* ========================================================
+   Responsive
+   ======================================================== */
+@media (max-width: 900px){
+  .features{ grid-template-columns: 1fr; }
+  .footer-inner{ grid-template-columns: 1fr; }
+  .hero{ background-size: 60% auto, 80% auto, 60% auto, auto, auto, auto;
+         background-position: 10% 15%, 50% 55%, 92% 10%; }
+}
+@media (max-width: 640px){
+  .nav{ gap: 8px; }
+  .nav a{ padding: 10px; }
+  .hero .container{ padding: 40px 20px; }
+}
